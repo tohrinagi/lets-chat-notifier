@@ -2,5 +2,5 @@ Let's Chat Notifier
 ====
 
 ## Overview
-Let's Chat Notifier is unoffcial chrome plugin.
-This plugin notify of unread message count.
+Let's Chat Notifier is unoffcial chrome extention.
+This extention notify of unread message count.
