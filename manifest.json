@@ -11,5 +11,5 @@
     "default_icon": "icons/icon.png",
     "default_title" : "Let's Chat Notifier"
   },
-  "permissions": ["tabs"]
+  "permissions": ["tabs","http://*/*","https://*/*"]
 }
