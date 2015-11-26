@@ -33,7 +33,7 @@ chrome.tabs.onActivated.addListener(function(info){
       if (tab.url.indexOf(url) != -1) {
         SaveDate();
         chrome.browserAction.setBadgeText({text:""});
-      };
+      }
     });
   }
 });
@@ -47,16 +47,38 @@ $(function(){
               var unreadMessageCount = 0;
               var checkRoomsNum = 0;
               var checkRoomsMax = 0;
+
+              function beforeSendFunc(request, settings) {
+                request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
+              }
               $.ajax({
                         url: url,
                         cache: false,
                         type: 'GET',
-                        beforeSend: function (request, settings) {
-                          request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
-                        },
+                        beforeSend: beforeSendFunc,
                         success: function(json){
                           var i;
                           checkRoomsMax = json.length;
+
+                          function successFunc(json){
+                            checkRoomsNum++;
+                            unreadMessageCount += json.length;
+                            if( checkRoomsMax == checkRoomsNum )
+                            {
+                              if( unreadMessageCount > 0 )
+                              {
+                                chrome.browserAction.setBadgeText({text:unreadMessageCount.toString()});
+                              }
+                              else
+                              {
+                                chrome.browserAction.setBadgeText({text:""});
+                              }
+                            }
+                          }
+
+                          function errorFunc(e){
+                          }
+
                           for (i=0; i<json.length; i++) {
                             var postParameter = localStorage["date"] ? "?from=" + localStorage["date"] : "";
                             var url = GenerateUrl( "rooms/" + json[i].id + "/messages" + postParameter );
@@ -64,26 +86,9 @@ $(function(){
                                       url: url,
                                       cache: false,
                                       type: 'GET',
-                                      beforeSend: function (request, settings) {
-                                        request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
-                                      },
-                                      success: function(json){
-                                        checkRoomsNum++;
-                                        unreadMessageCount += json.length;
-                                        if( checkRoomsMax == checkRoomsNum )
-                                        {
-                                          if( unreadMessageCount > 0 )
-                                          {
-                                            chrome.browserAction.setBadgeText({text:unreadMessageCount.toString()});
-                                          }
-                                          else
-                                          {
-                                            chrome.browserAction.setBadgeText({text:""});
-                                          }
-                                        }
-                                      },
-                                      error: function(e) {
-                                      }
+                                      beforeSend: beforeSendFunc,
+                                      success: successFunc,
+                                      error: errorFunc
                                   });
                           }
                         },
@@ -115,8 +120,7 @@ function SaveDate()
   var mi = toDoubleDigits( date.getUTCMinutes() );
   var se = toDoubleDigits( date.getUTCSeconds() );
   var ms = date.getMilliseconds();
-  localStorage["date"] = yyyy + "-" + mm + "-" + dd
-                       + "T" + hh + ":" + mi + ":" + se + "." + ms + "Z";
+  localStorage["date"] = yyyy + "-" + mm + "-" + dd + "T" + hh + ":" + mi + ":" + se + "." + ms + "Z";
 }
 
 function GenerateUrl( subUrl )
