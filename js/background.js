@@ -38,6 +38,10 @@ chrome.tabs.onActivated.addListener(function(info){
   }
 });
 
+function beforeSendFunc(request, settings) {
+  request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
+}
+
 $(function(){
   setInterval(function() {
         if(localStorage["token"] && localStorage["url"] && activatedTabId ) {
@@ -48,9 +52,6 @@ $(function(){
               var checkRoomsNum = 0;
               var checkRoomsMax = 0;
 
-              function beforeSendFunc(request, settings) {
-                request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
-              }
               $.ajax({
                         url: url,
                         cache: false,
