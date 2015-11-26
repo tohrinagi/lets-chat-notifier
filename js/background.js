@@ -11,7 +11,7 @@ chrome.browserAction.onClicked.addListener(function(){
         }
       }
       if( tabId ){
-        chrome.tabs.update(tabId, {active:true}, function(tab){
+        chrome.tabs.update(tabId, {active:true}, function(){
           if(chrome.runtime.lastError) {
             chrome.tabs.create({url:url});
           }
@@ -38,7 +38,7 @@ chrome.tabs.onActivated.addListener(function(info){
   }
 });
 
-function beforeSendFunc(request, settings) {
+function beforeSendFunc(request) {
   request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
 }
 
@@ -77,7 +77,7 @@ $(function(){
                             }
                           }
 
-                          function errorFunc(e){
+                          function errorFunc(){
                           }
 
                           for (i=0; i<json.length; i++) {
@@ -93,7 +93,7 @@ $(function(){
                                   });
                           }
                         },
-                        error: function(e) {
+                        error: function() {
                         }
                     }); //ajax
             } //if
