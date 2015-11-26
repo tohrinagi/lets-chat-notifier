@@ -1,7 +1,11 @@
 {
     "extends": "eslint:recommended",
-    "env": {"browser": true},
+    "env": {
+        "browser": true,
+        "jquery": true,
+        "webextensions": true
+        },
     "rules": {
-        "semi": 2
+        "semi": 2,
     }
 }
