@@ -1,3 +1,4 @@
+/*global storage*/
 chrome.browserAction.onClicked.addListener(function(){
   var url = storage.url();
   if( url ){

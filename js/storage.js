@@ -1,3 +1,4 @@
+/*exported storage*/
 var storage = {
   url : function() {
     return localStorage['url'];
