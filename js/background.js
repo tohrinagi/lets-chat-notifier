@@ -1,5 +1,6 @@
+/*global storage*/
 chrome.browserAction.onClicked.addListener(function(){
-  var url = localStorage['url'];
+  var url = storage.url();
   if( url ){
     chrome.tabs.query({}, function(tabs){
       var i;
@@ -27,11 +28,11 @@ chrome.browserAction.onClicked.addListener(function(){
 var activatedTabId = null;
 chrome.tabs.onActivated.addListener(function(info){
   activatedTabId = info.tabId;
-  var url = localStorage['url'];
+  var url = storage.url();
   if( url ){
     chrome.tabs.get(info.tabId, function(tab){
       if (tab.url.indexOf(url) != -1) {
-        SaveDate();
+        storage.setDate();
         chrome.browserAction.setBadgeText({text:""});
       }
     });
@@ -39,15 +40,15 @@ chrome.tabs.onActivated.addListener(function(info){
 });
 
 function beforeSendFunc(request) {
-  request.setRequestHeader("Authorization", "Bearer " + localStorage["token"]);
+  request.setRequestHeader("Authorization", "Bearer " + storage.token());
 }
 
 $(function(){
   setInterval(function() {
-        if(localStorage["token"] && localStorage["url"] && activatedTabId ) {
+        if(storage.token() && storage.url() && activatedTabId ) {
           chrome.tabs.get(activatedTabId, function(tab){
-            if (tab.url.indexOf(localStorage["url"]) == -1) {
-              var url = GenerateUrl( "rooms" );
+            if (tab.url.indexOf(storage.url()) == -1) {
+              var url = storage.generateApiUrl( "rooms" );
               var unreadMessageCount = 0;
               var checkRoomsNum = 0;
               var checkRoomsMax = 0;
@@ -81,8 +82,8 @@ $(function(){
                           }
 
                           for (i=0; i<json.length; i++) {
-                            var postParameter = localStorage["date"] ? "?from=" + localStorage["date"] : "";
-                            var url = GenerateUrl( "rooms/" + json[i].id + "/messages" + postParameter );
+                            var postParameter = storage.date() ? "?from=" + storage.date() : "";
+                            var url = storage.generateApiUrl( "rooms/" + json[i].id + "/messages" + postParameter );
                             $.ajax({
                                       url: url,
                                       cache: false,
@@ -101,35 +102,3 @@ $(function(){
         } //if
   }, 5000); //setInterval
 }); //$
-
-
-function SaveDate()
-{
-  var toDoubleDigits = function(num) {
-    num += "";
-    if (num.length === 1) {
-      num = "0" + num;
-    }
-    return num;
-  };
-
-  var date = new Date();
-  var yyyy = date.getUTCFullYear();
-  var mm = toDoubleDigits( date.getUTCMonth() + 1 );
-  var dd = toDoubleDigits( date.getUTCDate() );
-  var hh = toDoubleDigits( date.getUTCHours() );
-  var mi = toDoubleDigits( date.getUTCMinutes() );
-  var se = toDoubleDigits( date.getUTCSeconds() );
-  var ms = date.getMilliseconds();
-  localStorage["date"] = yyyy + "-" + mm + "-" + dd + "T" + hh + ":" + mi + ":" + se + "." + ms + "Z";
-}
-
-function GenerateUrl( subUrl )
-{
-  var url = localStorage["url"];
-  if( url.slice(-1) != '/' )
-  {
-    url += '/';
-  }
-  return url + subUrl;
-}
