@@ -45,7 +45,7 @@ function beforeSendFunc(request) {
 
 $(function(){
   setInterval(function() {
-        if(storage.token() && storage.url() && activatedTabId ) {
+        if(storage.isConfigured() && activatedTabId ) {
           chrome.tabs.get(activatedTabId, function(tab){
             if (tab.url.indexOf(storage.url()) == -1) {
               var url = storage.generateApiUrl( "rooms" );
