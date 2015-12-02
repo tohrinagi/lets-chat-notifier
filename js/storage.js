@@ -24,6 +24,13 @@ var storage = {
     }
     return false;
   },
+  register : function(url, token, username, userid, avatar) {
+    localStorage["url"] = url;
+    localStorage["token"] = token;
+    localStorage["username"] = username;
+    localStorage["userid"] = userid;
+    localStorage["avatar"] = avatar;
+  },
   setDate : function() {
     var toDoubleDigits = function(num) {
       num += "";
