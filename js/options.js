@@ -1,4 +1,4 @@
-/*exported storage*/
+/*global storage*/
 document.getElementById('save').onclick = function() {
   $("#save").prop("disabled", true);
 
