@@ -2,8 +2,8 @@
 document.getElementById('save').onclick = function() {
   $("#save").prop("disabled", true);
 
-  url = document.getElementById('url').value;
-  token = document.getElementById('token').value;
+  var url = document.getElementById('url').value;
+  var token = document.getElementById('token').value;
   if( url.slice(-1) != '/' )
   {
     url += '/';
