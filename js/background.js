@@ -1,7 +1,7 @@
 /*global storage*/
 chrome.browserAction.onClicked.addListener(function(){
-  var url = storage.url();
-  if( url ){
+  if( storage.isConfigured() ){
+    var url = storage.url();
     chrome.tabs.query({}, function(tabs){
       var i;
       var tabId = null;
@@ -22,6 +22,8 @@ chrome.browserAction.onClicked.addListener(function(){
         chrome.tabs.create({url:url});
       }
     });
+  } else {
+    chrome.tabs.create({url:"chrome-extension://okmlegpkoblokjjiddakimljkiblmnhc/html/options.html"});
   }
 });
 
@@ -45,60 +47,67 @@ function beforeSendFunc(request) {
 
 $(function(){
   setInterval(function() {
-        if(storage.isConfigured() && activatedTabId ) {
-          chrome.tabs.get(activatedTabId, function(tab){
-            if (tab.url.indexOf(storage.url()) == -1) {
-              var url = storage.generateApiUrl( "rooms" );
-              var unreadMessageCount = 0;
-              var checkRoomsNum = 0;
-              var checkRoomsMax = 0;
+    if( storage.isConfigured() ) {
+      chrome.browserAction.setIcon({path:"icons/icon.png"});
+    } else {
+      chrome.browserAction.setIcon({path:"icons/unauth.png"});
+    }
 
-              $.ajax({
-                        url: url,
-                        cache: false,
-                        type: 'GET',
-                        beforeSend: beforeSendFunc,
-                        success: function(json){
-                          var i;
-                          checkRoomsMax = json.length;
 
-                          function successFunc(json){
-                            checkRoomsNum++;
-                            unreadMessageCount += json.length;
-                            if( checkRoomsMax == checkRoomsNum )
-                            {
-                              if( unreadMessageCount > 0 )
-                              {
-                                chrome.browserAction.setBadgeText({text:unreadMessageCount.toString()});
-                              }
-                              else
-                              {
-                                chrome.browserAction.setBadgeText({text:""});
-                              }
-                            }
-                          }
+    if(storage.isConfigured() && activatedTabId ) {
+      chrome.tabs.get(activatedTabId, function(tab){
+        if (tab.url.indexOf(storage.url()) == -1) {
+          var url = storage.generateApiUrl( "rooms" );
+          var unreadMessageCount = 0;
+          var checkRoomsNum = 0;
+          var checkRoomsMax = 0;
 
-                          function errorFunc(){
-                          }
+          $.ajax({
+            url: url,
+            cache: false,
+            type: 'GET',
+            beforeSend: beforeSendFunc,
+            success: function(json){
+              var i;
+              checkRoomsMax = json.length;
 
-                          for (i=0; i<json.length; i++) {
-                            var postParameter = storage.date() ? "?from=" + storage.date() : "";
-                            var url = storage.generateApiUrl( "rooms/" + json[i].id + "/messages" + postParameter );
-                            $.ajax({
-                                      url: url,
-                                      cache: false,
-                                      type: 'GET',
-                                      beforeSend: beforeSendFunc,
-                                      success: successFunc,
-                                      error: errorFunc
-                                  });
-                          }
-                        },
-                        error: function() {
-                        }
-                    }); //ajax
-            } //if
-          }); //chrome.tabs.get
+              function successFunc(json){
+                checkRoomsNum++;
+                unreadMessageCount += json.length;
+                if( checkRoomsMax == checkRoomsNum )
+                {
+                  if( unreadMessageCount > 0 )
+                  {
+                    chrome.browserAction.setBadgeText({text:unreadMessageCount.toString()});
+                  }
+                  else
+                  {
+                    chrome.browserAction.setBadgeText({text:""});
+                  }
+                }
+              }
+
+              function errorFunc(){
+              }
+
+              for (i=0; i<json.length; i++) {
+                var postParameter = storage.date() ? "?from=" + storage.date() : "";
+                var url = storage.generateApiUrl( "rooms/" + json[i].id + "/messages" + postParameter );
+                $.ajax({
+                  url: url,
+                  cache: false,
+                  type: 'GET',
+                  beforeSend: beforeSendFunc,
+                  success: successFunc,
+                  error: errorFunc
+                });
+              }
+            },
+            error: function() {
+            }
+          }); //ajax
         } //if
+      }); //chrome.tabs.get
+    } //if
   }, 5000); //setInterval
 }); //$

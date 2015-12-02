@@ -17,13 +17,12 @@ document.getElementById('save').onclick = function() {
       request.setRequestHeader("Authorization", "Bearer " + token);
     },
     success: function(json) {
-          storage.register( url, token, json.username, json.id, json.avatar );
-          alert("success!");
-
-
-          $("#save").prop("disabled", false);
+        storage.register( url, token, json.username, json.id, json.avatar );
+        alert("success!");
+        $("#save").prop("disabled", false);
       },
     error: function() {
+        storage.register( "", "", "", "", "" );
         alert("error!");
         $("#save").prop("disabled", false);
       }
