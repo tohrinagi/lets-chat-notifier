@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charaset="utf-8">
-</head>
-<html>
-<body>
-  <h1>Let's Chat Notifier Options</h1>
-  <h2>Your Let's Chat URL</h2>
-  <input type="text" size="50" id="url">
-  <h2>API Token</h2>
-  <input type="text" size="50" id="token">
-  <br>
-  <br>
-  <button id="save">Save</button>
-  <script src="../js/jquery-2.1.4.min.js"></script>
-  <script src="../js/storage.js"></script>
-  <script src="../js/options.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Let's Chat Notifier Options</title>
+    <link href="../css/bootstrap.min.css"  rel="stylesheet">
+  </head>
+  <body>
+    <section class="container">
+      <div class="row">
+        <h1>Let's Chat Notifier Options</h1>
+
+        <div id="alert"></div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">認証設定</div>
+          <div class="panel-body">
+            <div class="input-group">
+              <span class="input-group-addon" style="width:80px">URL</span>
+              <input type="text" id="url"  class="form-control" size="100%" placeholder="Let's Chat のURLを入力してください。例: http://example.com/">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" style="width:80px">TOKEN</span>
+              <input type="text" id="token" class="form-control" size="100%" placeholder="API TOKEN を入力してください">
+            </div>
+            <button type="button2" id="save" class="btn btn-primary" >保存</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/options.js"></script>
+  </body>
 </html>
