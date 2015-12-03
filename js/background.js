@@ -17,7 +17,6 @@ chrome.browserAction.onClicked.addListener(function(){
             chrome.tabs.create({url:url});
           }
         });
-        chrome.browserAction.setBadgeText({text:""});
       }else{
         chrome.tabs.create({url:url});
       }
@@ -110,7 +109,10 @@ $(function(){
             error: function() {
             }
           }); //ajax
-        } //if
+        } else { // if url
+          storage.setDate();
+          chrome.browserAction.setBadgeText({text:""});
+        }
       }); //chrome.tabs.get
     } //if
   }, 5000); //setInterval
