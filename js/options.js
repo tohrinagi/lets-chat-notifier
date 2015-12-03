@@ -1,9 +1,14 @@
 /*global storage*/
-document.getElementById('save').onclick = function() {
+$("#save").click(function() {
   $("#save").prop("disabled", true);
 
-  var url = document.getElementById('url').value;
-  var token = document.getElementById('token').value;
+  $("#alert")
+    .attr("class", "alert alert-warning")
+    .attr("role", "alert")
+    .text("通信中です。お待ち下さい。");
+
+  var url = $('#url').val();
+  var token = $('#token').val();
   if( url.slice(-1) != '/' )
   {
     url += '/';
@@ -18,18 +23,31 @@ document.getElementById('save').onclick = function() {
     },
     success: function(json) {
         storage.register( url, token, json.username, json.id, json.avatar );
-        alert("success!");
+        $("#alert")
+          .attr("class", "alert alert-success")
+          .attr("role", "alert")
+          .text("認証が成功しました");
         $("#save").prop("disabled", false);
       },
     error: function() {
         storage.register( "", "", "", "", "" );
-        alert("error!");
+        $("#alert")
+          .attr("class", "alert alert-danger")
+          .attr("role", "alert")
+          .text("認証が失敗しました。URLかTOKENを見なおしてください。");
         $("#save").prop("disabled", false);
       }
   });
-};
+});
 
-document.body.onload = function() {
-  document.getElementById('url').value = storage.url() ? storage.url() : "";
-  document.getElementById('token').value = storage.token() ? storage.token() : "";
-};
+$(function(){
+  $('#url').val( storage.url() ? storage.url() : "" );
+  $('#token').val( storage.token() ? storage.token() : "" );
+
+  if( !storage.isConfigured() ){
+    $("#alert")
+      .attr("class", "alert alert-info")
+      .attr("role", "alert")
+      .text("認証されていません。URLとTOKENを設定してください。");
+  }
+});
