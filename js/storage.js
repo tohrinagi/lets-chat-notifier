@@ -9,6 +9,9 @@ var storage = {
   date : function() {
     return localStorage["date"];
   },
+  userid : function() {
+    return localStorage["userid"];
+  },
   generateApiUrl : function( action ){
     var url = localStorage["url"];
     if( url.slice(-1) != '/' )

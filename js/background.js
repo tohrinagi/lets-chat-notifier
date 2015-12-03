@@ -56,7 +56,7 @@ $(function(){
 
     if(storage.isConfigured() && activatedTabId ) {
       chrome.tabs.get(activatedTabId, function(tab){
-        if (tab.url.indexOf(storage.url()) == -1) {
+        if (tab.url.indexOf(storage.url()) === -1) {
           var url = storage.generateApiUrl( "rooms" );
           var unreadMessageCount = 0;
           var checkRoomsNum = 0;
@@ -73,8 +73,12 @@ $(function(){
 
               function successFunc(json){
                 checkRoomsNum++;
-                unreadMessageCount += json.length;
-                if( checkRoomsMax == checkRoomsNum )
+                for( var i = 0; i < json.length; i++ ) {
+                  if( json[i].owner !== storage.userid() ) {
+                    unreadMessageCount++;
+                  }
+                }
+                if( checkRoomsMax === checkRoomsNum )
                 {
                   if( unreadMessageCount > 0 )
                   {
