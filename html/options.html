@@ -14,7 +14,7 @@
 
         <div id="alert"></div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
           <div class="panel-heading">認証設定</div>
           <div class="panel-body">
             <div class="input-group">
@@ -28,7 +28,16 @@
             <button type="button2" id="save" class="btn btn-primary" >保存</button>
           </div>
         </div>
-
+        <div class="panel panel-default">
+          <div class="panel-heading">部屋ごとの設定</div>
+          <table class="table">
+            <tbody id="rooms">
+              <tr><td>
+              <dv id="empty">情報を取得できませんでした<div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
     <script src="../js/jquery-2.1.4.min.js"></script>
