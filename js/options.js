@@ -49,9 +49,13 @@ $(function(){
 
   if( storage.isConfigured() ){
     createRoomTable();
-  } else {
     $("#alert")
       .attr("class", "alert alert-info")
+      .attr("role", "alert")
+      .text("認証済みです。このままご利用できます。");
+  } else {
+    $("#alert")
+      .attr("class", "alert alert-warning")
       .attr("role", "alert")
       .text("認証されていません。URLとTOKENを設定してください。");
   }
@@ -97,6 +101,15 @@ function createRoomTable(){
 
       $("#rooms").empty();
       $("#rooms").append( roomContents );
+      for (var i=0; i<json.length; i++) {
+        $('input[name="' + json[i].slug + '"]:radio').change( function(){
+          storage.setRoomNotification( $(this).attr("name"), $(this).val() );
+          $("#alert")
+            .attr("class", "alert alert-success")
+            .attr("role", "alert")
+            .text($(this).parents("td").siblings().text() + "の通知設定を変更しました。");
+        });
+      }
     },
     error: function() {
       $("#empty")
