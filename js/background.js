@@ -73,9 +73,16 @@ $(function(){
               function successFunc(json){
                 checkRoomsNum++;
                 for( var i = 0; i < json.length; i++ ) {
-                  if( json[i].owner !== storage.userid() ) {
-                    unreadMessageCount++;
+                  if( json[i].owner === storage.userid() ) {
+                    continue;
                   }
+                  if( storage.roomNotification( json[i].room ) === "to" ) {
+                    if( json[i].text.indexOf(storage.username()) === -1 )
+                    {
+                      continue;
+                    }
+                  }
+                  unreadMessageCount++;
                 }
                 if( checkRoomsMax === checkRoomsNum )
                 {
@@ -96,6 +103,10 @@ $(function(){
               for (i=0; i<json.length; i++) {
                 var postParameter = storage.date() ? "?from=" + storage.date() : "";
                 var url = storage.generateApiUrl( "rooms/" + json[i].id + "/messages" + postParameter );
+                if( storage.roomNotification( json[i].id ) === "none" ) {
+                  checkRoomsMax--;
+                  continue;
+                }
                 $.ajax({
                   url: url,
                   cache: false,
