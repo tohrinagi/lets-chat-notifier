@@ -108,7 +108,7 @@ function createRoomTable(){
           .attr("class", "alert alert-success")
           .attr("role", "alert")
           .text($(this).parents("td").siblings().text() + "の通知設定を変更しました。");
-      }
+      };
       json.forEach(function(val){
         $('input[name="' + val.id + '"]:radio').change(radioChanged);
       });
