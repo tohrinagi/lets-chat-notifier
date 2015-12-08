@@ -12,6 +12,15 @@ var storage = {
   userid : function() {
     return localStorage["userid"];
   },
+  roomNotification: function(room_id) {
+    return localStorage["room"+room_id] || "all";
+  },
+  setRoomNotification: function(room_id,value) {
+    localStorage["room"+room_id] = value;
+  },
+  username: function() {
+    return localStorage["username"];
+  },
   generateApiUrl : function( action ){
     var url = localStorage["url"];
     if( url.slice(-1) != '/' )
