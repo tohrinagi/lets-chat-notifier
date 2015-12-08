@@ -75,28 +75,28 @@ function createRoomTable(){
       var roomContents = "";
       for (var i=0; i<json.length; i++) {
         var selected = storage.roomNotification(json[i].id);
-        noneSelected = ( selected == "none") ? ' active">' : '">';
-        toSelected = ( selected == "to") ? ' active">' : '">';
-        allSelected = ( selected == "all") ? ' active">' : '">';
+        var noneSelected = ( selected == "none") ? ' active">' : '">';
+        var toSelected = ( selected == "to") ? ' active">' : '">';
+        var allSelected = ( selected == "all") ? ' active">' : '">';
 
-        roomContents += '<tr>'
-          + '<td>'
-          + json[i].name
-          + '</td>'
-          + '<td>'
-          + '<div id="'+ json[i].name+ '-mode" class="btn-group" data-toggle="buttons">'
-          + '<label class="btn btn-default' + noneSelected
-          + '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="none" id="none-' + json[i].id + '">通知しない'
-          + '</label>'
-          + '<label class="btn btn-default' + toSelected
-          + '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="to">TO のみ通知'
-          + '</label>'
-          + '<label class="btn btn-default' + allSelected
-          + '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="all">すべて通知'
-          + '</label>'
-          + '</div>'
-          + '</td>'
-          + '</tr>';
+        roomContents += '<tr>' +
+          '<td>' +
+          json[i].name +
+          '</td>' +
+          '<td>' +
+          '<div id="' + json[i].name + '-mode" class="btn-group" data-toggle="buttons">' +
+          '<label class="btn btn-default' + noneSelected +
+          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="none" id="none-' + json[i].id + '">通知しない' +
+          '</label>' +
+          '<label class="btn btn-default' + toSelected +
+          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="to">TO のみ通知' +
+          '</label>' +
+          '<label class="btn btn-default' + allSelected +
+          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="all">すべて通知' +
+          '</label>' +
+          '</div>' +
+          '</td>' +
+          '</tr>';
       }
 
       $("#rooms").empty();
