@@ -73,43 +73,45 @@ function createRoomTable(){
     },
     success: function(json){
       var roomContents = "";
-      for (var i=0; i<json.length; i++) {
-        var selected = storage.roomNotification(json[i].id);
+      json.forEach(function(val){
+        var selected = storage.roomNotification(val.id);
         var noneSelected = ( selected == "none") ? ' active">' : '">';
         var toSelected = ( selected == "to") ? ' active">' : '">';
         var allSelected = ( selected == "all") ? ' active">' : '">';
 
         roomContents += '<tr>' +
           '<td>' +
-          json[i].name +
+          val.name +
           '</td>' +
           '<td>' +
-          '<div id="' + json[i].name + '-mode" class="btn-group" data-toggle="buttons">' +
+          '<div id="' + val.name + '-mode" class="btn-group" data-toggle="buttons">' +
           '<label class="btn btn-default' + noneSelected +
-          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="none" id="none-' + json[i].id + '">通知しない' +
+          '<input type="radio" autocomplete="off" name="' + val.id + '" value="none" id="none-' + val.id + '">通知しない' +
           '</label>' +
           '<label class="btn btn-default' + toSelected +
-          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="to">TO のみ通知' +
+          '<input type="radio" autocomplete="off" name="' + val.id + '" value="to">TO のみ通知' +
           '</label>' +
           '<label class="btn btn-default' + allSelected +
-          '<input type="radio" autocomplete="off" name="' + json[i].id + '" value="all">すべて通知' +
+          '<input type="radio" autocomplete="off" name="' + val.id + '" value="all">すべて通知' +
           '</label>' +
           '</div>' +
           '</td>' +
           '</tr>';
-      }
+      });
 
       $("#rooms").empty();
       $("#rooms").append( roomContents );
-      for (var i=0; i<json.length; i++) {
-        $('input[name="' + json[i].id + '"]:radio').change( function(){
-          storage.setRoomNotification( $(this).attr("name"), $(this).val() );
-          $("#alert")
-            .attr("class", "alert alert-success")
-            .attr("role", "alert")
-            .text($(this).parents("td").siblings().text() + "の通知設定を変更しました。");
-        });
+
+      var radioChanged = function(){
+        storage.setRoomNotification( $(this).attr("name"), $(this).val() );
+        $("#alert")
+          .attr("class", "alert alert-success")
+          .attr("role", "alert")
+          .text($(this).parents("td").siblings().text() + "の通知設定を変更しました。");
       }
+      json.forEach(function(val){
+        $('input[name="' + val.id + '"]:radio').change(radioChanged);
+      });
     },
     error: function() {
       $("#empty")
