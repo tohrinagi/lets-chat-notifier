@@ -1,6 +1,6 @@
 {
   "name": "Let's Chat Notifier",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "manifest_version": 2,
   "description": "The extention notifiy of let's chat.",
   "options_page" : "html/options.html",
