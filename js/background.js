@@ -77,7 +77,7 @@ $(function(){
                     continue;
                   }
                   if( storage.roomNotification( json[i].room ) === "to" ) {
-                    if( json[i].text.indexOf(storage.username()) === -1 )
+                    if( json[i].text.indexOf(storage.username()) === -1 && json[i].text.indexOf('@all') === -1 )
                     {
                       continue;
                     }
