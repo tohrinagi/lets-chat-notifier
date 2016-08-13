@@ -1,0 +1,70 @@
+{
+  "extName" : {
+    "message" : "Let's Chat Notifier"
+  },
+  "extDescription" : {
+    "message" : "Let's Chat からの通知を表示するエクステンションです。"
+  },
+  "optionTitle" : {
+    "message" : "Let's Chat Notifier オプション"
+  },
+  "authenticationSetting" : {
+    "message" : "認証設定"
+  },
+  "url" : {
+    "message" : "URL"
+  },
+  "token" : {
+    "message" : "TOKEN"
+  },
+  "urlExample" : {
+    "message" : "Let's Chat のURLを入力してください。例: http://example.com/"
+  },
+  "tokenExample" : {
+    "message" : "API TOKEN を入力してください"
+  },
+  "save" : {
+    "message" : "保存"
+  },
+  "roomSetting" : {
+    "message" : "部屋ごとの設定"
+  },
+  "authenticating" : {
+    "message" : "認証中です。お待ち下さい。"
+  },
+  "uncommunicated" : {
+    "message" : "情報を取得できませんでした"
+  },
+  "successfullAuthentication" : {
+    "message" : "認証が成功しました"
+  },
+  "failureAuthentication" : {
+    "message" : "認証が失敗しました。URLかTOKENを見なおしてください。"
+  },
+  "authenticated" : {
+    "message" : "認証済みです。このままご利用できます。"
+  },
+  "unauthenticated" : {
+    "message" : "認証されていません。URLとTOKENを設定してください。"
+  },
+  "communicating" : {
+    "message" : "情報を取得中です……"
+  },
+  "notifyNone" : {
+    "message" : "通知しない"
+  },
+  "notifyOnlyTo" : {
+    "message" : "TO のみ通知"
+  },
+  "notifyAll" : {
+    "message" : "すべて通知"
+  },
+  "modifySetting" : {
+    "message" : "$item$の通知設定を変更しました。",
+    "placeholders" : {
+      "item" : {
+        "content" : "$1"
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "extName" : {
+    "message" : "Let's Chat Notifier"
+  },
+  "extDescription" : {
+    "message" : "The extention notifiy of let's chat."
+  },
+  "optionTitle" : {
+    "message" : "Let's Chat Notifier Options"
+  },
+  "authenticationSetting" : {
+    "message" : "Authentication Settings"
+  },
+  "url" : {
+    "message" : "URL"
+  },
+  "token" : {
+    "message" : "Token"
+  },
+  "urlExample" : {
+    "message" : "Please input Let's Chat url. example: http://example.com/"
+  },
+  "tokenExample" : {
+    "message" : "Please input Let's Chat api token."
+  },
+  "save" : {
+    "message" : "Save"
+  },
+  "roomSetting" : {
+    "message" : "Rooms Settings"
+  },
+  "authenticating" : {
+    "message" : "Please wait ..."
+  },
+  "uncommunicated" : {
+    "message" : "Unable to get the infomation."
+  },
+  "successfullAuthentication" : {
+    "message" : "Authentication was successful."
+  },
+  "failureAuthentication" : {
+    "message" : "Authentication Failed. Please check url and token."
+  },
+  "authenticated" : {
+    "message" : "Authnticated. It is available."
+  },
+  "unauthenticated" : {
+    "message" : "Unauthenticated. Please input url and token."
+  },
+  "communicating" : {
+    "message" : "Communicating ..."
+  },
+  "notifyNone" : {
+    "message" : "None"
+  },
+  "notifyOnlyTo" : {
+    "message" : "Only TO"
+  },
+  "notifyAll" : {
+    "message" : "Notify All"
+  },
+  "modifySetting" : {
+    "message" : "$item$ was modified",
+    "placeholders" : {
+      "item" : {
+        "content" : "$1"
+      }
+    }
+  }
+}
