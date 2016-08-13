@@ -1,8 +1,8 @@
 {
-  "name": "Let's Chat Notifier",
+  "name": "__MSG_extName__",
   "version": "1.0.0",
   "manifest_version": 2,
-  "description": "The extention notifiy of let's chat.",
+  "description": "__MSG_extDescription__",
   "options_page" : "html/options.html",
   "background": {
     "scripts": ["js/jquery-2.1.4.min.js","js/storage.js","js/background.js"]
@@ -16,5 +16,6 @@
     "default_icon": "icons/icon.png",
     "default_title" : "Let's Chat Notifier"
   },
-  "permissions": ["tabs","http://*/*","https://*/*"]
+  "permissions": ["tabs","http://*/*","https://*/*"],
+  "default_locale" : "ja"
 }

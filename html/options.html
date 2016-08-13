@@ -10,30 +10,30 @@
   <body>
     <section class="container">
       <div class="row">
-        <h1>Let's Chat Notifier Options</h1>
+        <h1 id="msg_option" >Let's Chat Notifier Options</h1>
 
         <div id="alert"></div>
 
         <div class="panel panel-primary">
-          <div class="panel-heading">認証設定</div>
+          <div class="panel-heading" id="msg_authenticationSetting">認証設定</div>
           <div class="panel-body">
             <div class="input-group">
-              <span class="input-group-addon" style="width:80px">URL</span>
+              <span class="input-group-addon" style="width:80px" id="msg_url">URL</span>
               <input type="text" id="url"  class="form-control" size="100%" placeholder="Let's Chat のURLを入力してください。例: http://example.com/">
             </div>
             <div class="input-group">
-              <span class="input-group-addon" style="width:80px">TOKEN</span>
+              <span class="input-group-addon" style="width:80px" id="msg_token">TOKEN</span>
               <input type="text" id="token" class="form-control" size="100%" placeholder="API TOKEN を入力してください">
             </div>
             <button type="button2" id="save" class="btn btn-primary" >保存</button>
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">部屋ごとの設定</div>
+          <div class="panel-heading" id="msg_roomSetting">部屋ごとの設定</div>
           <table class="table">
             <tbody id="rooms">
               <tr><td>
-              <dv id="empty">情報を取得できませんでした<div>
+              <div id="empty">情報を取得できませんでした<div>
               </td></tr>
             </tbody>
           </table>
