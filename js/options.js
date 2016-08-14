@@ -56,11 +56,13 @@ $(function(){
   $("#msg_token").text( chrome.i18n.getMessage("token") );
   $("#token").attr("placeholder",chrome.i18n.getMessage("tokenExample"));
   $("#save").text( chrome.i18n.getMessage("save") );
+  $("#msg_notificationSetting").text( chrome.i18n.getMessage("notificationSetting") );
   $("#msg_roomSetting").text( chrome.i18n.getMessage("roomSetting") );
   $("#empty").text( chrome.i18n.getMessage("uncommunicated") );
 
   if( storage.isConfigured() ){
     createRoomTable();
+    createNotificationSetting();
     $("#alert")
       .attr("class", "alert alert-info")
       .attr("role", "alert")
@@ -72,6 +74,41 @@ $(function(){
       .text(chrome.i18n.getMessage("unauthenticated"));
   }
 });
+
+function createNotificationSetting(){
+
+  var selected = storage.notificationMethod();
+  var badgeSelected = ( selected == "badge") ? ' active">' : '">';
+  var desktopSelected = ( selected == "desktop") ? ' active">' : '">';
+
+  var notificationContents = '<tr>' +
+    '<td>' +
+    chrome.i18n.getMessage("notificationMethod") +
+    '</td>' +
+    '<td>' +
+    '<div id="method-mode" class="btn-group" data-toggle="buttons">' +
+    '<label class="btn btn-default' + badgeSelected +
+    '<input type="radio" autocomplete="off" name="method" value="badge" id="none-method">' + chrome.i18n.getMessage("notificationMethodBadge") +
+    '</label>' +
+    '<label class="btn btn-default' + desktopSelected +
+    '<input type="radio" autocomplete="off" name="method" value="desktop">' + chrome.i18n.getMessage("notificationMethodDesktop") +
+    '</label>' +
+    '</div>' +
+    '</td>' +
+    '</tr>';
+
+  $("#notifications").empty();
+  $("#notifications").append( notificationContents );
+
+  var methodChanged = function(){
+    storage.setNotificationMethod( $(this).val() );
+    $("#alert")
+      .attr("class", "alert alert-success")
+      .attr("role", "alert")
+      .text(chrome.i18n.getMessage("modifySetting", [$(this).parents("td").siblings().text()] ));
+  };
+  $('input[name="method"]:radio').change(methodChanged);
+}
 
 function createRoomTable(){
   $("#empty")

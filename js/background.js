@@ -1,4 +1,5 @@
 /*global storage*/
+/*global cache*/
 chrome.browserAction.onClicked.addListener(function(){
   if( storage.isConfigured() ){
     var url = storage.url();
@@ -35,6 +36,7 @@ chrome.tabs.onActivated.addListener(function(info){
       if (tab.url.indexOf(url) != -1) {
         storage.setDate();
         chrome.browserAction.setBadgeText({text:""});
+        dispayedNotifications = [];
       }
     });
   }
@@ -42,6 +44,32 @@ chrome.tabs.onActivated.addListener(function(info){
 
 function beforeSendFunc(request) {
   request.setRequestHeader("Authorization", "Bearer " + storage.token());
+}
+
+var dispayedNotifications = [];
+function showDesktopNotification(data) {
+  if( storage.notificationMethod == "desktop" )
+  {
+    if( dispayedNotifications.indexOf(data.id) === -1 ) {
+      cache.getRooms(data.room, function(roomVal){
+        chache.getUsrs(data.owner, function(userVal){
+          var roomName = "";
+          var userName = "";
+          if( roomVal != null )
+          {
+            roomName = roomVal.name;
+          }
+          if( userVal != null )
+          {
+            userName = userVal.username;
+          }
+
+          chrome.notifications.create(data.id, {title: username + "[" + roomName + "]", message:data.text, type:'basic', iconUrl:'http://rakugakiicon.com/ri/wp-content/uploads/2015/04/fc2b099ab8e978ffd1fbcef6650ea286.png'}, function(id){});
+          dispayedNotifications.push( data.id );
+        });
+      });
+    }
+  }
 }
 
 $(function(){
@@ -82,6 +110,7 @@ $(function(){
                       continue;
                     }
                   }
+                  showDesktopNotification(json[i]);
                   unreadMessageCount++;
                 }
                 if( checkRoomsMax === checkRoomsNum )
@@ -123,6 +152,7 @@ $(function(){
         } else { // if url
           storage.setDate();
           chrome.browserAction.setBadgeText({text:""});
+          dispayedNotifications = [];
         }
       }); //chrome.tabs.get
     } //if

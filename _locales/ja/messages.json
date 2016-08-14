@@ -26,6 +26,21 @@
   "save" : {
     "message" : "保存"
   },
+  "notificationSetting" : {
+    "message" : "通知設定"
+  },
+  "notificationMethod" : {
+    "message" : "通知方法"
+  },
+  "notificationMethodBadge" : {
+    "message" : "バッジ"
+  },
+  "notificationMethodDesktop" : {
+    "message" : "デスクトップ通知"
+  },
+  "roomSetting" : {
+    "message" : "部屋ごとの設定"
+  },
   "roomSetting" : {
     "message" : "部屋ごとの設定"
   },

@@ -18,6 +18,12 @@ var storage = {
   setRoomNotification: function(room_id,value) {
     localStorage["room"+room_id] = value;
   },
+  notificationMethod: function() {
+    return localStorage["notificationMethod"] || "badge";
+  },
+  setNotificationMethod: function(method) {
+    localStorage["notificationMethod"] = method;
+  },
   username: function() {
     return localStorage["username"];
   },
