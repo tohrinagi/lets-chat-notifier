@@ -7,7 +7,7 @@ $("#save").click(function() {
     .attr("role", "alert")
     .text(chrome.i18n.getMessage("authenticating"));
   $("#rooms").empty();
-  $("#rooms").append( '<tr><td><dv id="empty">' + chrome.i18n.getMessage("uncommunicated") + '<div></td></tr>' );
+  $("#rooms").append( '<tr><td><dv id="rooms_empty">' + chrome.i18n.getMessage("uncommunicated") + '<div></td></tr>' );
 
   var url = $('#url').val();
   var token = $('#token').val();
@@ -30,6 +30,7 @@ $("#save").click(function() {
           .attr("role", "alert")
           .text(chrome.i18n.getMessage("successfullAuthentication"));
         $("#save").prop("disabled", false);
+        createNotificationSetting();
         createRoomTable();
       },
     error: function() {
@@ -58,7 +59,8 @@ $(function(){
   $("#save").text( chrome.i18n.getMessage("save") );
   $("#msg_notificationSetting").text( chrome.i18n.getMessage("notificationSetting") );
   $("#msg_roomSetting").text( chrome.i18n.getMessage("roomSetting") );
-  $("#empty").text( chrome.i18n.getMessage("uncommunicated") );
+  $("#rooms_empty").text( chrome.i18n.getMessage("uncommunicated") );
+  $("#notifications_empty").text( chrome.i18n.getMessage("uncommunicated") );
 
   if( storage.isConfigured() ){
     createRoomTable();
@@ -111,7 +113,7 @@ function createNotificationSetting(){
 }
 
 function createRoomTable(){
-  $("#empty")
+  $("#rooms_empty")
     .text(chrome.i18n.getMessage("communicating"));
   $.ajax({
     url: storage.generateApiUrl( "rooms" ),
@@ -163,7 +165,7 @@ function createRoomTable(){
       });
     },
     error: function() {
-      $("#empty")
+      $("#rooms_empty")
         .text(chrome.i18n.getMessage("uncommunicated"));
       $("#alert")
         .attr("class", "alert alert-info")
