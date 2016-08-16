@@ -26,6 +26,18 @@
   "save" : {
     "message" : "Save"
   },
+  "notificationSetting" : {
+    "message" : "Notification Settings"
+  },
+  "notificationMethod" : {
+    "message" : "Notification Method"
+  },
+  "notificationMethodBadge" : {
+    "message" : "Badge"
+  },
+  "notificationMethodDesktop" : {
+    "message" : "Desktop Notification"
+  },
   "roomSetting" : {
     "message" : "Rooms Settings"
   },

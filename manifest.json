@@ -5,7 +5,7 @@
   "description": "__MSG_extDescription__",
   "options_page" : "html/options.html",
   "background": {
-    "scripts": ["js/jquery-2.1.4.min.js","js/storage.js","js/background.js"]
+    "scripts": ["js/jquery-2.1.4.min.js","js/storage.js","js/cache.js","js/background.js"]
   },
   "icons": {
     "16" : "icons/icon.png",
@@ -16,6 +16,6 @@
     "default_icon": "icons/icon.png",
     "default_title" : "Let's Chat Notifier"
   },
-  "permissions": ["tabs","http://*/*","https://*/*"],
+  "permissions": ["notifications", "tabs","http://*/*","https://*/*"],
   "default_locale" : "ja"
 }

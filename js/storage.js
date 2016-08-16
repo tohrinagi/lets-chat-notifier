@@ -1,5 +1,4 @@
-/*exported storage*/
-var storage = {
+window.storage = {
   url : function() {
     return localStorage['url'];
   },
@@ -7,6 +6,10 @@ var storage = {
     return localStorage["token"];
   },
   date : function() {
+    if( localStorage["date"] == null )
+    {
+      this.setDate();
+    }
     return localStorage["date"];
   },
   userid : function() {
@@ -17,6 +20,12 @@ var storage = {
   },
   setRoomNotification: function(room_id,value) {
     localStorage["room"+room_id] = value;
+  },
+  notificationMethod: function() {
+    return localStorage["notificationMethod"] || "badge";
+  },
+  setNotificationMethod: function(method) {
+    localStorage["notificationMethod"] = method;
   },
   username: function() {
     return localStorage["username"];
