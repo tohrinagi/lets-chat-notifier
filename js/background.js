@@ -18,7 +18,7 @@ function openLetsChatTab(room_id) {
         active: true
       };
 
-      if( room_id != "" )
+      if( room_id !== "" )
       {
         if( url.slice(-1) != '/' )
         {
@@ -90,7 +90,7 @@ function showDesktopNotification(data) {
       }
     }
 
-    if( isDisplayed == false ) {
+    if( isDisplayed === false ) {
       window.cache.rooms(data.room, function(roomVal){
         window.cache.users(data.owner, function(userVal){
           var roomName = "";
@@ -104,7 +104,7 @@ function showDesktopNotification(data) {
             userName = userVal.username;
           }
 
-          chrome.notifications.create(data.id, {title: "[" + roomName + "] " + userName, message:data.text, type:'basic', iconUrl:chrome.runtime.getURL('icons/icon.png') }, function(id){});
+          chrome.notifications.create(data.id, {title: "[" + roomName + "] " + userName, message:data.text, type:'basic', iconUrl:chrome.runtime.getURL('icons/icon.png') }, function(){});
           dispayedNotifications.push( { id : data.id, room : data.room } );
         });
       });

@@ -19,7 +19,7 @@ window.cache = (function() {
           onError();
         }
       });
-    };
+    }
 
     function startUsersApi(onFinished,onError) {
       $.ajax({
@@ -37,7 +37,7 @@ window.cache = (function() {
           onError();
         }
       });
-    };
+    }
 
     function getRooms(id,callback) {
       if( _rooms != null )
@@ -67,10 +67,10 @@ window.cache = (function() {
     }
 
     self.rooms = function(id,callback) {
-      if( getRooms(id, callback) == false )
+      if( getRooms(id, callback) === false )
       {
         startRoomsApi( function(){
-          if( getRooms(id, callback) == false )
+          if( getRooms(id, callback) === false )
           {
             callback(null);
           }
@@ -79,13 +79,13 @@ window.cache = (function() {
           callback(null);
         });
       }
-    }
+    };
 
     self.users = function(id,callback) {
-      if( getUsers(id, callback) == false )
+      if( getUsers(id, callback) === false )
       {
         startUsersApi( function(){
-          if( getUsers(id, callback) == false )
+          if( getUsers(id, callback) === false )
           {
             callback(null);
           }
@@ -94,7 +94,7 @@ window.cache = (function() {
           callback(null);
         });
       }
-    }
+    };
 
     return self;
 })();
