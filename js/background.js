@@ -45,7 +45,7 @@ chrome.browserAction.onClicked.addListener(function(){
   if( window.storage.isConfigured() ){
     openLetsChatTab("");
   } else {
-    chrome.tabs.create({url:"chrome-extension://okmlegpkoblokjjiddakimljkiblmnhc/html/options.html"});
+    chrome.runtime.openOptionsPage();
   }
 });
 
